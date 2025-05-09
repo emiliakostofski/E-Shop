@@ -1,0 +1,55 @@
+<th:block>
+<div th:if="${hasError}" class="alert alert-danger" th:text="${error}"></div>
+
+<!-- Add Product Form -->
+<div class="container">
+  <div class="form-container">
+    <h3 class="text-center mb-4">Add Product</h3>
+    <form action="/products/add" method="post">
+
+      <div class="form-group">
+        <label for="name">Product Name</label>
+        <input type="text" class="form-control" id="name" name="name" required placeholder="Enter product name">
+      </div>
+
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input type="text" class="form-control" id="price" name="price" required placeholder="Enter price">
+      </div>
+
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input type="text" class="form-control" id="quantity" name="quantity" required placeholder="Enter quantity">
+      </div>
+
+      <div class="form-group">
+        <label>Category</label>
+        <select name="category" class="form-control" required>
+          <option value="">Select a category</option>
+          <!-- Add categories dynamically here -->
+          <option value="1">Category 1</option>
+          <option value="2">Category 2</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Manufacturer</label>
+        <select name="manufacturer" class="form-control" required>
+          <option value="">Select a manufacturer</option>
+          <!-- Add manufacturers dynamically here -->
+          <option value="1">Manufacturer 1</option>
+          <option value="2">Manufacturer 2</option>
+        </select>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a class="btn btn-secondary" href="/products">Back</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+</html>
+</th:block>

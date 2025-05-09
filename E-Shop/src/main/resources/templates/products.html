@@ -1,0 +1,72 @@
+<!-- Page Content -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+<div class="container mt-4" >
+    <div class="welcome-text">
+        <h1>WELCOME TO THE PRODUCTS PAGE</h1>
+        <p>Explore the products and manage your inventory.</p>
+    </div>
+</div>
+
+<th:block>
+<!-- Products Table -->
+<div class="container table-container">
+    <h2 class="text-center mb-4">Product List</h2>
+
+    <!-- Check if products exist -->
+    <div th:if="${products.size() > 0}">
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="table-primary">
+            <tr>
+                <th scope="col">Product Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Manufacturer</th>
+                <th scope="col">Category</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.getName()}"></td>
+                <td th:text="${product.getPrice()}"></td>
+                <td th:text="${product.getManufacturer() != null ? product.getManufacturer().getName() : 'No manufacturer'}"></td>
+                <td th:text="${product.getCategory() != null ? product.getCategory().getName() : 'No category'}"></td>
+                <td class="text-right">
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                            <form th:method="delete" th:action="@{'/products/delete/{id}' (id=${product.getId()})}">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="fa fa-trash"></i> Delete
+                                </button><br/><br/>
+                    </th:block>
+
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+
+                            </form>
+                            <a class="btn btn-sm btn-warning" th:href="@{'/products/edit-form/{id}' (id=${product.getId()})}">
+                                <i class="fa fa-edit"></i> Edit
+                            </a><br/><br/>
+
+                    </th:block>
+
+                    <form th:method="POST" th:action="@{'/shopping-cart/add-product/{id}' (id=${product.getId()})}">
+                        <button type="submit" class="btn btn-sm btn-primary">
+                            <i class="fa fa-trash"></i>Add product to cart
+                        </button><br/>
+                    </form>
+
+
+                    <div th:if="${hasError}" class="alert alert-danger" th:text="${error}"></div>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center mt-3">
+        <a href="/products/add-form" class="btn btn-add-product">Add New Product</a>
+    </div>
+ </div>
+</html>
+</th:block>

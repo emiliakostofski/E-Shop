@@ -1,0 +1,53 @@
+<th:block>
+<!-- Page Content -->
+<div class="container mt-4">
+    <div class="welcome-text">
+        <h1>WELCOME TO THE SHOPPING CART PAGE</h1>
+        <p>Explore the products and manage your inventory.</p>
+    </div>
+</div>
+
+
+
+<div th:if="${hasError}" class="alert alert-danger" th:text="${error}"></div>
+<!-- Products Table -->
+<div class="container table-container">
+    <h2 class="text-center mb-4">Shopping Cart for <th:block
+            th:if="${session.user != null}" th:text="${session.user.getUsername()}"></th:block></h2>
+
+    <!-- Check if products exist -->
+    <div th:if="${products.size() > 0}">
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="table-primary">
+            <tr>
+                <th scope="col">Product Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Manufacturer</th>
+                <th scope="col">Category</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.getName()}"></td>
+                <td th:text="${product.getPrice()}"></td>
+                <td th:text="${product.getManufacturer() != null ? product.getManufacturer().getName() : 'No manufacturer'}"></td>
+                <td th:text="${product.getCategory() != null ? product.getCategory().getName() : 'No category'}"></td>
+                <td class="text-right">
+<!--                    <form th:method="delete" th:action="@{'/products/delete/{id}' (id=${product.getId()})}">-->
+<!--                        <button type="submit" class="btn btn-sm btn-danger">-->
+<!--                            <i class="fa fa-trash"></i> Delete-->
+<!--                        </button><br/>-->
+<!--                    </form>-->
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
+
+</th:block>
